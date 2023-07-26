@@ -130,7 +130,7 @@ always@(*)
         if(valid==1 && hwrite==0)
          begin
            paddr_temp=haddr;
-			  pwdata_temp=hwdata;//undefined
+	   pwdata_temp=hwdata;//undefined
            pwrite_temp=hwrite;//undefined
            psel_temp=tempselx;
            penable_temp=0;
@@ -140,9 +140,9 @@ always@(*)
 
         else if(valid==1 && hwrite==1)
          begin
-			  paddr_temp=haddr1;
-			  pwrite_temp=hwritereg;
-			  pwdata_temp=hwdata;
+	   paddr_temp=haddr1;
+	   pwrite_temp=hwritereg;
+	   pwdata_temp=hwdata;
            psel_temp=0;
            penable_temp=0;
            hr_readyout_temp=1;
@@ -150,9 +150,9 @@ always@(*)
 
         else
          begin
-			  paddr_temp=haddr1;//undefined
-			  pwrite_temp=hwritereg;//undefined
-			  pwdata_temp=hwdata1;//undefined
+	   paddr_temp=haddr1;//undefined
+	   pwrite_temp=hwritereg;//undefined
+	   pwdata_temp=hwdata1;//undefined
            psel_temp=0;
            penable_temp=0;
            hr_readyout_temp=1'b1;
@@ -162,25 +162,25 @@ always@(*)
 
       ST_READ:
        begin
-		   if(!hwritereg)////single and burst read
-			begin
-			  paddr_temp=haddr1;
-	        pwdata_temp=hwdata;//undefined
-	        pwrite_temp=0;
-   	     psel_temp=tempselx;
-           penable_temp=1;
-           hr_readyout_temp = 1'b1;
-			end
+        if(!hwritereg)////single and burst read
+	  begin
+	    paddr_temp=haddr1;
+	    pwdata_temp=hwdata;//undefined
+	    pwrite_temp=0;
+   	    psel_temp=tempselx;
+            penable_temp=1;
+            hr_readyout_temp = 1'b1;
+	   end
 		 
-		   else///back2back read 
-			begin
-	        paddr_temp=haddr3;
-	        pwdata_temp=hwdata3;
-	        pwrite_temp=0;
+	 else///back2back read 
+	   begin
+	     paddr_temp=haddr3;
+	     pwdata_temp=hwdata3;
+	     pwrite_temp=0;
    	     psel_temp=tempselx;
-           penable_temp=1;
-           hr_readyout_temp = 1'b1;
-		   end
+             penable_temp=1;
+             hr_readyout_temp = 1'b1;
+	   end
        end
 
       ST_RENABLE:
@@ -188,7 +188,7 @@ always@(*)
         if(valid==1 && hwrite==0)
          begin
            paddr_temp=haddr;
-			  pwdata_temp=hwdata;//undefined
+	   pwdata_temp=hwdata;//undefined
            pwrite_temp=hwrite;
            psel_temp=tempselx;
            penable_temp=0;
@@ -196,18 +196,18 @@ always@(*)
          end
         else if(valid==1 && hwrite==1)
          begin
-			  paddr_temp=haddr4;
-			  pwdata_temp=hwdata4;
-			  pwrite_temp=0;
+	   paddr_temp=haddr4;
+   	   pwdata_temp=hwdata4;
+	   pwrite_temp=0;
            psel_temp=0;
            penable_temp=0;
            hr_readyout_temp=1;
          end
         else
          begin
-			  paddr_temp=haddr2;
-			  pwdata_temp=hwdata;
-			  pwrite_temp=1'b0;
+	   paddr_temp=haddr2;
+	   pwdata_temp=hwdata;
+	   pwrite_temp=1'b0;
            psel_temp=0;
            penable_temp=0;
            hr_readyout_temp=1;//undefined
@@ -216,48 +216,48 @@ always@(*)
 
       ST_WWAIT:
        begin
-		  if(valid)
-		    begin
-			   paddr_temp=haddr1;
-            pwdata_temp=hwdata;
-            pwrite_temp=hwritereg;/////hwrite--->hwritereg///back2back
-            psel_temp=tempselx;
-            penable_temp=0;
-            hr_readyout_temp=0; 
-			 end
-		  else
-		    begin
-			   paddr_temp=haddr1;
-            pwdata_temp=hwdata;
-            pwrite_temp=hwritereg;/////hwrite--->hwritereg//single write
-            psel_temp=tempselx;
-            penable_temp=0;
-            hr_readyout_temp=1;//undefined
-			 end
+         if(valid)
+	   begin
+	     paddr_temp=haddr1;
+             pwdata_temp=hwdata;
+             pwrite_temp=hwritereg;/////hwrite--->hwritereg///back2back
+             psel_temp=tempselx;
+             penable_temp=0;
+             hr_readyout_temp=0; 
+	   end
+	  else
+	    begin
+	      paddr_temp=haddr1;
+              pwdata_temp=hwdata;
+              pwrite_temp=hwritereg;/////hwrite--->hwritereg//single write
+              psel_temp=tempselx;
+              penable_temp=0;
+              hr_readyout_temp=1;//undefined
+	    end
            
        end
 
       ST_WRITE:
        begin
-		   if(hwritereg1)///single write
-			begin
-			  paddr_temp=haddr2;////haddr2 is required
-		     pwdata_temp=hwdata1;
-		     psel_temp=tempselx;
-		     pwrite_temp=1;
-           penable_temp=1;
-           hr_readyout_temp=1;//undefined
-			end
+         if(hwritereg1)///single write
+	   begin
+	     paddr_temp=haddr2;////haddr2 is required
+	     pwdata_temp=hwdata1;
+	     psel_temp=tempselx;
+	     pwrite_temp=1;
+             penable_temp=1;
+             hr_readyout_temp=1;//undefined
+	   end
 			
-			else////burst write
-			begin
-			  paddr_temp=haddr3;////haddr3 is required
-		     pwdata_temp=hwdata1;
-		     psel_temp=tempselx;
-		     pwrite_temp=1;
-           penable_temp=1;
-           hr_readyout_temp=1;//undefined
-			end
+	 else////burst write
+	   begin
+	     paddr_temp=haddr3;////haddr3 is required
+	     pwdata_temp=hwdata1;
+	     psel_temp=tempselx;
+	     pwrite_temp=1;
+             penable_temp=1;
+             hr_readyout_temp=1;//undefined
+	   end
 		   
        end
 
@@ -265,9 +265,9 @@ always@(*)
        begin
         if(valid==1 && hwrite==0)///no such trns
          begin
-			  paddr_temp=haddr;//undefined
-			  pwdata_temp=hwdata;//undefined
-			  pwrite_temp=hwritereg;
+	   paddr_temp=haddr;//undefined
+           pwdata_temp=hwdata;//undefined
+	   pwrite_temp=hwritereg;
            psel_temp=0;
            penable_temp=0;
            hr_readyout_temp=1'bx;
@@ -276,7 +276,7 @@ always@(*)
         else if(valid==1 && hwrite==1)///no such trns
          begin 
            paddr_temp=haddr1;
-			  pwdata_temp=hwdata;//undefined
+	   pwdata_temp=hwdata;//undefined
            pwrite_temp=hwritereg;
            psel_temp=tempselx;
            penable_temp=0;
@@ -285,9 +285,9 @@ always@(*)
 
         else
          begin
-			  paddr_temp=haddr3;
-			  pwdata_temp=hwdata2;
-			  pwrite_temp=1;
+	   paddr_temp=haddr3;
+	   pwdata_temp=hwdata2;
+	   pwrite_temp=1;
            psel_temp=0;
            penable_temp=0;
            hr_readyout_temp=1;//undefined
@@ -296,30 +296,30 @@ always@(*)
         
       ST_WRITEP:
        begin
-	    if(hwritereg==0)/////back2back transaction//////hwritereg1 seems incorrect ?????
-        begin
+	 if(hwritereg==0)/////back2back transaction//////hwritereg1 seems incorrect ?????
+           begin
 	     paddr_temp=haddr2;///
 	     pwdata_temp=hwdata1;
 	     pwrite_temp=1;
 	     psel_temp=tempselx;
-        penable_temp=1;
-        hr_readyout_temp=0;		  
-        end
-       else if(hwdata2!=8'hxx)///////first writep to wenablep 
-        begin
-		    paddr_temp=haddr3;///haddr3 is required
-		    pwdata_temp=hwdata1;
-		    pwrite_temp=1;
-			 psel_temp=tempselx;
-          penable_temp=1;
-          hr_readyout_temp=1;           
-        end///////
+             penable_temp=1;
+             hr_readyout_temp=0;		  
+           end
+         else if(hwdata2!=8'hxx)///////first writep to wenablep 
+           begin
+	     paddr_temp=haddr3;///haddr3 is required
+	     pwdata_temp=hwdata1;
+	     pwrite_temp=1;
+	     psel_temp=tempselx;
+             penable_temp=1;
+             hr_readyout_temp=1;           
+           end///////
       else//// further writep to wenablep
        begin
-		   paddr_temp=haddr2;
-		   pwdata_temp=hwdata1;
-		   pwrite_temp=1;
-			psel_temp=tempselx;
+         paddr_temp=haddr2;
+	 pwdata_temp=hwdata1;
+	 pwrite_temp=1;
+	 psel_temp=tempselx;
          penable_temp=1;
          hr_readyout_temp=1; 
        end
@@ -327,34 +327,34 @@ always@(*)
 
       ST_WENABLEP:
        begin
-		   if(valid==0 && hwritereg1==1)
-			begin
-			 paddr_temp=haddr2;
-          pwdata_temp=hwdata;
-          pwrite_temp=hwritereg1;/////hwrite--->hwritereg1
-          psel_temp=tempselx;
-          penable_temp=0;
-          hr_readyout_temp=1'b1;//undefined 
-			end
+         if(valid==0 && hwritereg1==1)
+	   begin
+	     paddr_temp=haddr2;
+             pwdata_temp=hwdata;
+             pwrite_temp=hwritereg1;/////hwrite--->hwritereg1
+             psel_temp=tempselx;
+             penable_temp=0;
+             hr_readyout_temp=1'b1;//undefined 
+	   end
 			
-			else if(valid==1 && hwritereg==1)
-			begin
-          paddr_temp=haddr2;
-          pwdata_temp=hwdata;
-          pwrite_temp=hwritereg1;/////hwrite--->hwritereg1
-          psel_temp=tempselx;
-          penable_temp=0;
-          hr_readyout_temp=0; 
-			end
-			else //if(hwritereg1)
-			begin
-          paddr_temp=haddr2;
-          pwdata_temp=hwdata2;
-          pwrite_temp=hwritereg1;/////hwrite--->hwritereg1
-          psel_temp=tempselx;
-          penable_temp=0;
-          hr_readyout_temp=0;			
-			end 
+	  else if(valid==1 && hwritereg==1)
+	    begin
+              paddr_temp=haddr2;
+              pwdata_temp=hwdata;
+              pwrite_temp=hwritereg1;/////hwrite--->hwritereg1
+              psel_temp=tempselx;
+              penable_temp=0;
+              hr_readyout_temp=0; 
+	    end
+	   else //if(hwritereg1)
+	     begin
+               paddr_temp=haddr2;
+               pwdata_temp=hwdata2;
+               pwrite_temp=hwritereg1;/////hwrite--->hwritereg1
+               psel_temp=tempselx;
+               penable_temp=0;
+               hr_readyout_temp=0;			
+	     end 
        end
 		 
 		  
