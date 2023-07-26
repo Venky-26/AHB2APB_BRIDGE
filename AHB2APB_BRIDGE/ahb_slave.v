@@ -27,15 +27,15 @@ always @(posedge hclk)
       begin
         haddr1<=0;
         haddr2<=0;
-		  haddr3<=0;
+	haddr3<=0;
         haddr4<=0;
       end
     else
       begin
         haddr1<=haddr;
         haddr2<=haddr1;
-		  haddr3<=haddr2;
-		  haddr4<=haddr3;
+	haddr3<=haddr2;
+	 haddr4<=haddr3;
       end
   end
   
@@ -46,14 +46,14 @@ always @(posedge hclk)
       begin
         hwdata1<=0;
         hwdata2<=0;
-		  hwdata3<=0;
+	hwdata3<=0;
         hwdata4<=0;
       end
     else
       begin
         hwdata1<=hwdata;
         hwdata2<=hwdata1;
-		  hwdata3<=hwdata2;
+	hwdata3<=hwdata2;
         hwdata4<=hwdata3;
       end
   end
